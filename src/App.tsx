@@ -8,6 +8,8 @@ import MemberDetailPage from './pages/MemberDetailPage'
 import MemberCreatePage from './pages/MemberCreatePage'
 import MemberImportPage from './pages/MemberImportPage'
 import SessionsPage from './pages/SessionsPage'
+import SessionCreatePage from './pages/SessionCreatePage'
+import SessionDetailPage from './pages/SessionDetailPage'
 
 function DashboardPage() {
   return (
@@ -29,7 +31,7 @@ function DashboardPage() {
 }
 
 function ScannerPage() {
-  return <div className="text-xl font-semibold text-slate-900">Scanner QR (prochaine étape)</div>
+  return <div className="text-xl font-semibold text-slate-900">Scanner QR — en cours de développement</div>
 }
 
 function StatsPage() {
@@ -60,6 +62,7 @@ export default function App() {
           }
         >
           <Route index element={<DashboardPage />} />
+
           <Route
             path="scanner"
             element={
@@ -68,7 +71,15 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
           <Route path="sessions" element={<SessionsPage />} />
+          <Route path="sessions/new" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'RESPONSABLE']}>
+              <SessionCreatePage />
+            </ProtectedRoute>
+          } />
+          <Route path="sessions/:id" element={<SessionDetailPage />} />
+
           <Route path="members" element={<MembersPage />} />
           <Route path="members/new" element={
             <ProtectedRoute allowedRoles={['ADMIN']}>
@@ -81,6 +92,7 @@ export default function App() {
             </ProtectedRoute>
           } />
           <Route path="members/:id" element={<MemberDetailPage />} />
+
           <Route path="stats" element={<StatsPage />} />
         </Route>
 
