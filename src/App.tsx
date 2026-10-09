@@ -10,6 +10,7 @@ import MemberImportPage from './pages/MemberImportPage'
 import SessionsPage from './pages/SessionsPage'
 import SessionCreatePage from './pages/SessionCreatePage'
 import SessionDetailPage from './pages/SessionDetailPage'
+import ScannerPage from './pages/ScannerPage'
 
 function DashboardPage() {
   return (
@@ -28,10 +29,6 @@ function DashboardPage() {
       </div>
     </div>
   )
-}
-
-function ScannerPage() {
-  return <div className="text-xl font-semibold text-slate-900">Scanner QR — en cours de développement</div>
 }
 
 function StatsPage() {
