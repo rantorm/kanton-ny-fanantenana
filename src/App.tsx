@@ -4,26 +4,36 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import AppLayout from './layouts/AppLayout'
 import LoginPage from './pages/LoginPage'
 import MembersPage from './pages/MembersPage'
+import MemberDetailPage from './pages/MemberDetailPage'
+import MemberCreatePage from './pages/MemberCreatePage'
+import MemberImportPage from './pages/MemberImportPage'
+import SessionsPage from './pages/SessionsPage'
 
 function DashboardPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-slate-900">Tableau de bord</h1>
-      <p className="text-slate-500">Bienvenue dans Kanton’ny Fanantenana</p>
+      <p className="text-slate-500">Bienvenue dans Kanton’ny Fanantenana — Présences & Assiduité</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <p className="text-sm text-slate-500">Membres actifs</p>
+          <p className="text-2xl font-semibold text-slate-900 mt-1">—</p>
+        </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <p className="text-sm text-slate-500">Séances</p>
+          <p className="text-2xl font-semibold text-slate-900 mt-1">—</p>
+        </div>
+      </div>
     </div>
   )
 }
 
 function ScannerPage() {
-  return <div className="text-xl font-semibold">Scanner QR (Étape 6)</div>
-}
-
-function SessionsPage() {
-  return <div className="text-xl font-semibold">Séances (Étape 5)</div>
+  return <div className="text-xl font-semibold text-slate-900">Scanner QR (prochaine étape)</div>
 }
 
 function StatsPage() {
-  return <div className="text-xl font-semibold">Statistiques (Étape 8)</div>
+  return <div className="text-xl font-semibold text-slate-900">Statistiques (prochaine étape)</div>
 }
 
 export default function App() {
@@ -60,6 +70,17 @@ export default function App() {
           />
           <Route path="sessions" element={<SessionsPage />} />
           <Route path="members" element={<MembersPage />} />
+          <Route path="members/new" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}>
+              <MemberCreatePage />
+            </ProtectedRoute>
+          } />
+          <Route path="members/import" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}>
+              <MemberImportPage />
+            </ProtectedRoute>
+          } />
+          <Route path="members/:id" element={<MemberDetailPage />} />
           <Route path="stats" element={<StatsPage />} />
         </Route>
 
