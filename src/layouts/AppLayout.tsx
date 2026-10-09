@@ -2,7 +2,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export default function AppLayout() {
-  const { profile, signOut } = useAuth()
+  const { profile, signOut, isAdmin } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -15,6 +15,7 @@ export default function AppLayout() {
     { to: '/scanner', label: 'Scanner', icon: '📷', roles: ['ADMIN', 'RESPONSABLE'] },
     { to: '/sessions', label: 'Séances', icon: '📅' },
     { to: '/members', label: 'Choristes', icon: '👥' },
+    { to: '/badges', label: 'Badges', icon: '🎫', roles: ['ADMIN'] },
     { to: '/stats', label: 'Stats', icon: '📊' },
   ]
 
@@ -52,7 +53,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 safe-area-pb">
+      <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30">
         <div className="max-w-5xl mx-auto flex justify-around">
           {navItems.map((item) => {
             if (item.roles && profile && !item.roles.includes(profile.role)) {
@@ -64,7 +65,7 @@ export default function AppLayout() {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `flex flex-col items-center py-3 px-3 text-xs font-medium transition ${
+                  `flex flex-col items-center py-3 px-2 text-xs font-medium transition ${
                     isActive
                       ? 'text-emerald-600'
                       : 'text-slate-500 hover:text-slate-800'

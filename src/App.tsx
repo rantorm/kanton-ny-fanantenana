@@ -11,6 +11,7 @@ import SessionsPage from './pages/SessionsPage'
 import SessionCreatePage from './pages/SessionCreatePage'
 import SessionDetailPage from './pages/SessionDetailPage'
 import ScannerPage from './pages/ScannerPage'
+import BadgesPage from './pages/BadgesPage'
 
 function DashboardPage() {
   return (
@@ -89,6 +90,12 @@ export default function App() {
             </ProtectedRoute>
           } />
           <Route path="members/:id" element={<MemberDetailPage />} />
+
+          <Route path="badges" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}>
+              <BadgesPage />
+            </ProtectedRoute>
+          } />
 
           <Route path="stats" element={<StatsPage />} />
         </Route>
